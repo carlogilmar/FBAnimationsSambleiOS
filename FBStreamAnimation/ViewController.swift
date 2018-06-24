@@ -15,6 +15,11 @@ class ViewController: UIViewController {
         let curvedView = CurvedView(frame: view.frame)
         curvedView.backgroundColor = .yellow
         view.addSubview(curvedView)
+        
+        let imageView = UIImageView(image: #imageLiteral(resourceName: "md"))
+        imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        view.addSubview(imageView)
+        
     }
     
 }
