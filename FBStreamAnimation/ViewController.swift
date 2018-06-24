@@ -12,22 +12,33 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let curvedView = CurvedView(frame: view.frame)
-        curvedView.backgroundColor = .yellow
-        view.addSubview(curvedView)
-        
+        //let curvedView = CurvedView(frame: view.frame)
+        //curvedView.backgroundColor = .yellow
+        //view.addSubview(curvedView)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+    }
+    
+    @objc func handleTap(){
+        (0...10).forEach { (_) in
+            generateAnimatedViews()
+        }
+    }
+    
+    fileprivate func generateAnimatedViews(){
+        print("Can you see me?")
         //image
         let imageView = UIImageView(image: #imageLiteral(resourceName: "md"))
-        imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        let dimension = 20 + drand48() * 10
+        imageView.frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         //animation
         let animation = CAKeyframeAnimation(keyPath: "position")
         animation.path = customPath().cgPath
         animation.duration = 2
         animation.fillMode = kCAFillModeForwards
         animation.isRemovedOnCompletion = false
+        animation.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseOut)
         imageView.layer.add(animation, forKey: nil)
         view.addSubview(imageView)
-        
     }
     
 }
