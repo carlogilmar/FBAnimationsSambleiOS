@@ -25,15 +25,15 @@ class ViewController: UIViewController {
     }
     
     fileprivate func generateAnimatedViews(){
-        print("Can you see me?")
         //image
-        let imageView = UIImageView(image: #imageLiteral(resourceName: "md"))
-        let dimension = 20 + drand48() * 10
+        let image = drand48() < 0.5 ? #imageLiteral(resourceName: "md") : #imageLiteral(resourceName: "ce")
+        let imageView = UIImageView(image: image)
+        let dimension = 20 + drand48() * 10 // drand random number
         imageView.frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
         //animation
         let animation = CAKeyframeAnimation(keyPath: "position")
         animation.path = customPath().cgPath
-        animation.duration = 2
+        animation.duration = 2 + drand48() * 3
         animation.fillMode = kCAFillModeForwards
         animation.isRemovedOnCompletion = false
         animation.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseOut)
@@ -47,12 +47,13 @@ class ViewController: UIViewController {
 func customPath() -> UIBezierPath {
     //draw the curve
     let path = UIBezierPath()
-    let startPoint = CGPoint(x: 0, y:200)
+    let startPoint = CGPoint(x: 0, y: 200)
     path.move(to: startPoint)
     let endPoint = CGPoint(x: 400, y: 200)
+    let randomyShift = 200 + drand48() * 300
     //path.addLine(to: endPoint)
-    let controlPoint1 = CGPoint(x: 100, y: 100)
-    let controlPoint2 = CGPoint(x: 200, y: 300)
+    let controlPoint1 = CGPoint(x: 100, y: 100 - randomyShift)
+    let controlPoint2 = CGPoint(x: 200, y: 300 - randomyShift)
     path.addCurve(to: endPoint, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
     return path
 }
