@@ -12,14 +12,27 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        let curvedView = CurvedView(frame: view.frame)
+        curvedView.backgroundColor = .yellow
+        view.addSubview(curvedView)
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
+    
+    
 }
 
+class CurvedView: UIView {
+    
+    override func draw(_ rect: CGRect) {
+        //draw the curve
+        let path = UIBezierPath()
+        let startPoint = CGPoint(x: 0, y:200)
+        path.move(to: startPoint)
+        let endPoint = CGPoint(x: 200, y: 200)
+        path.addLine(to: endPoint)
+        path.stroke()
+    }
+    
+}
